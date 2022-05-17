@@ -1,0 +1,16 @@
+server:
+  port: 8001
+spring:
+  profiles:
+    active: dev
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.zc.basic.**.domain
+#    configuration:
+#        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  config: classpath:log.xml
+  level:
+    com.lucifer.springboot.cache.mapper: debug
+mapper:
+  mappers: com.zc.basic.core.mapper.SysUserMapper,com.zc.basic.core.mapper.SysRoleMapper,com.zc.basic.core.mapper.SysDictMapper
