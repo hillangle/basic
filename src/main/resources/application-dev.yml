@@ -1,7 +1,7 @@
 spring:
     datasource:
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/check_nuclic_acid?useUnicode=true&characterEncoding=utf8
+        url: jdbc:mysql://127.0.0.1:3306/zc_basic_platform?useUnicode=true&characterEncoding=utf8
         username: root
         password: root
         initialSize: 1

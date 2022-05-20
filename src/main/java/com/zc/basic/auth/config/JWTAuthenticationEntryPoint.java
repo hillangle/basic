@@ -2,7 +2,6 @@ package com.zc.basic.auth.config;
 
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONUtil;
-import com.zc.basic.common.domain.dto.Result;
 import com.zc.basic.common.utils.ResultUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
@@ -24,15 +23,9 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
                          AuthenticationException authException) throws IOException, ServletException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-//        Result result = new Result();
-//        result.setHttpCode(HttpStatus.HTTP_UNAUTHORIZED);
-//        if (authException != null) {
-//            result.setResultMsg("error");
-//            result.setResultData(authException.getMessage());
-//        }
         response.setStatus(HttpStatus.HTTP_UNAUTHORIZED);
         PrintWriter printWriter = response.getWriter();
-        printWriter.append(JSONUtil.parse(ResultUtils.error(HttpStatus.HTTP_UNAUTHORIZED,authException.getMessage())).toString());
+        printWriter.append(JSONUtil.parse(ResultUtils.error(String.valueOf(HttpStatus.HTTP_UNAUTHORIZED),authException.getMessage())).toString());
     }
 
 }

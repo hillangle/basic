@@ -12,5 +12,4 @@ logging:
   config: classpath:log.xml
   level:
     com.lucifer.springboot.cache.mapper: debug
-mapper:
-  mappers: com.zc.basic.core.mapper.SysUserMapper,com.zc.basic.core.mapper.SysRoleMapper,com.zc.basic.core.mapper.SysDictMapper
+#    org.springframework.web.filter.CommonsRequestLoggingFilter: debug

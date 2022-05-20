@@ -11,8 +11,9 @@
     </resultMap>
 
     <select id="queryUserByAccount" resultMap="sysUser">
-        select * from t_user
+        select * from t_sys_user
         <where>
+            status = 'Y' and del_flag
             <if test="account != null and account != ''"> and account = #{account} </if>
         </where>
     </select>

@@ -1,10 +1,16 @@
 package com.zc.basic.auth.filter;
 
+import cn.hutool.json.JSONUtil;
 import com.zc.basic.auth.domain.AuthUser;
 import com.zc.basic.auth.service.AuthService;
 import com.zc.basic.auth.utils.JwtUtils;
+import com.zc.basic.common.exception.BusinessException;
+import com.zc.basic.common.exception.enums.BusinessExceptionEnum;
+import com.zc.basic.common.utils.ResultUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +29,7 @@ import java.util.Collections;
  * 验证成功当然就是进行鉴权了
  * 登录成功之后走此类进行鉴权操作
  */
+@Slf4j
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -46,8 +53,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             super.doFilterInternal(request, response, chain);
         }else {
             try {
-                throw new Exception("权限异常");
-            } catch (Exception e) {
+                throw new BusinessException(BusinessExceptionEnum.BUSINESS_AUTH_EXCEPTION.getCode(),BusinessExceptionEnum.BUSINESS_AUTH_EXCEPTION.getMsg());
+            }catch (BusinessException b){
+                log.error(b.getErrorMsg() + b.getMessage());
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                response.getOutputStream().write(JSONUtil.toJsonStr(ResultUtils.error(b.getErrorCode(),b.getErrorMsg())).getBytes());
+            }catch (Exception e) {
                 e.printStackTrace();
             }
         }

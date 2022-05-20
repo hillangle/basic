@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.basic.core.mapper.SysUserMapper">
+
+    <insert id="save" parameterType="com.zc.basic.core.domain.SysUser" useGeneratedKeys="true" keyProperty="unid">
+        insert into t_sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''">
+                `user_name`,
+            </if>
+            <if test="account != null and account != ''">
+                `account`,
+            </if>
+            <if test="password != null and password != ''">
+                `password`,
+            </if>
+            <if test="userRole != null and userRole != ''">
+                `user_role`,
+            </if>
+            <if test="sex != null and sex != ''">
+                `sex`,
+            </if>
+            <if test="mobile != null and mobile != ''">
+                `mobile`,
+            </if>
+            <if test="idCardNo != null and idCardNo != ''">
+                `id_card_no`,
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                `del_flag`,
+            </if>
+            <if test="status != null and status != ''">
+                `status`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''">
+                #{userName},
+            </if>
+            <if test="account != null and account != ''">
+                #{account},
+            </if>
+            <if test="password != null and password != ''">
+                #{password},
+            </if>
+            <if test="userRole != null and userRole != ''">
+                #{userRole},
+            </if>
+            <if test="sex != null and sex != ''">
+                #{sex},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                #{mobile},
+            </if>
+            <if test="idCardNo != null and idCardNo != ''">
+                #{idCardNo},
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                #{delFlag},
+            </if>
+            <if test="status != null and status != ''">
+                #{status},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.zc.basic.core.domain.SysUser">
+        update t_sys_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userName != null and userName != ''">`user_name` = #{userName},</if>
+            <if test="account != null and account != ''">`account` = #{account},</if>
+            <if test="password != null and password != ''">`password` = #{password},</if>
+            <if test="userRole != null and userRole != ''">`user_role` = #{userRole},</if>
+            <if test="sex != null and sex != ''">`sex` = #{sex},</if>
+            <if test="mobile != null and mobile != ''">`mobile` = #{mobile},</if>
+            <if test="idCardNo != null and idCardNo != ''">`id_card_no` = #{idCardNo},</if>
+            <if test="delFlag != null and delFlag != ''">`del_flag` = #{delFlag},</if>
+            <if test="status != null and status != ''">`status` = #{status},</if>
+        </trim>
+        where unid = #{unid}
+    </update>
+
+    <select id="queryPages" resultType="com.zc.basic.core.domain.SysUser">
+        select * from t_sys_user
+        <where>
+            <if test="userName != null and userName != ''"> and `user_name` like '%${userName}%'</if>
+            <if test="account != null and account != ''">and `account` like '%${account}'</if>
+            <if test="userRole != null and userRole != ''"> and `user_role` in
+                <foreach item="userRole" index="index" collection="userRole.split(',')" open="(" close=")" separator=",">
+                    #{userRole}
+                </foreach>
+            </if>
+            <if test="sex != null and sex != ''">and `sex` = #{sex}</if>
+            <if test="mobile != null and mobile != ''">and `mobile` like '%${mobile}%'</if>
+            <if test="idCardNo != null and idCardNo != ''">and `id_card_no` like '%${idCardNo}'</if>
+            <if test="delFlag != null and delFlag != ''">and `del_flag` = #{delFlag}</if>
+            <if test="status != null and status != ''">and `status` = #{status}</if>
+        </where>
+        limit #{page}, #{limit}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(1) from t_sys_user
+        <where>
+            <if test="userName != null and userName != ''"> and `user_name` like '%${userName}%'</if>
+            <if test="account != null and account != ''">and `account` like '%${account}'</if>
+            <if test="userRole != null and userRole != ''"> and `user_role` in
+                <foreach item="userRole" index="index" collection="userRole.split(',')" open="(" close=")" separator=",">
+                    #{userRole}
+                </foreach>
+            </if>
+            <if test="sex != null and sex != ''">and `sex` = #{sex}</if>
+            <if test="mobile != null and mobile != ''">and `mobile` like '%${mobile}%'</if>
+            <if test="idCardNo != null and idCardNo != ''">and `id_card_no` like '%${idCardNo}'</if>
+            <if test="delFlag != null and delFlag != ''">and `del_flag` = #{delFlag}</if>
+            <if test="status != null and status != ''">and `status` = #{status}</if>
+        </where>
+    </select>
+</mapper>

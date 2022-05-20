@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             // 管理后台仅拥有ROLE_SYSUSER权限的用户可以访问
-            .antMatchers("/sys/**/**").hasAnyRole("SYSUSER","INPUTUSER","COLLECTUSER","PRICEUSER","PUBLISHUSER")
+            .antMatchers("/sys/**/**").permitAll()//hasAnyRole("SYSUSER","INPUTUSER","COLLECTUSER","PRICEUSER","PUBLISHUSER")
             // 前台小程序仅拥有ROLE_APPUSER权限的用户可以访问
             .antMatchers("/app/updatePassword").permitAll()
             .antMatchers("/app/**").hasRole("APPUSER")

@@ -4,7 +4,9 @@ public enum BusinessExceptionEnum {
     /**
      * 业务数据插入异常
      */
-    BUSINESS_SAVE_EXCEPTION("01","数据插入异常");
+    BUSINESS_SAVE_EXCEPTION("500", "数据插入异常"),
+    BUSINESS_UPDATE_EXCEPTION("500", "数据修改异常"),
+    BUSINESS_AUTH_EXCEPTION("403", "用户鉴权异常");
 
     /**
      * 状态
